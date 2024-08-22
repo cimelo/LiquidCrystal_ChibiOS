@@ -88,7 +88,7 @@ endif
 PROJECT = ch
 
 # Imported source files and paths.
-CHIBIOS  := ../..
+CHIBIOS  := ../../../..
 CONFDIR  := ./cfg
 BUILDDIR := ./build
 DEPDIR   := ./.dep
@@ -109,9 +109,13 @@ include $(CHIBIOS)/os/common/ports/AVR/compilers/GCC/mk/port.mk
 # Optional inclusions
 # include $(CHIBIOS)/os/hal/lib/streams/streams.mk 
 
+# LCD inclusion, note that it expecs the files in
+# the correct folder
+include $(CHIBIOS)/os/hal/lib/lcd/lcd.mk 
+
 # List C source files here. (C dependencies are automatically generated.)
 CSRC =  $(ALLCSRC) \
-        main.c ../../liquidcrystal.c
+        main.c
 
 # List C++ sources file here.
 CPPSRC = $(ALLCPPSRC)
