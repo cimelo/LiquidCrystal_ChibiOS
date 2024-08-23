@@ -58,7 +58,7 @@ struct Lcd {
 extern struct Lcd lcd;
 
 // Helper function for user configuration
-void init_4bits(uint8_t rows, uint8_t cols, uint8_t rs,\
+void lcd_init_4bits(uint8_t rows, uint8_t cols, uint8_t rs,\
 		uint8_t e, uint8_t d4, uint8_t d5,\
 		uint8_t d6, uint8_t d7);
 

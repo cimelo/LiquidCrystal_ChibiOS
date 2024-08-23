@@ -11,7 +11,7 @@ struct Lcd lcd = {
 	.data = {4, 5, 6, 7}
 };
 
-void init_4bits(uint8_t rows, uint8_t cols, uint8_t rs,\
+void lcd_init_4bits(uint8_t rows, uint8_t cols, uint8_t rs,\
 		uint8_t en, uint8_t d4, uint8_t d5,\
 		uint8_t d6, uint8_t d7) {
 
