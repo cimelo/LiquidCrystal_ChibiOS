@@ -1,7 +1,5 @@
 #include "liquidcrystal.h"
 
-BaseSequentialStream* chp = (BaseSequentialStream*) &SD1;
-
 // Default configurations
 struct Lcd lcd = {
 	.rows = 2,
