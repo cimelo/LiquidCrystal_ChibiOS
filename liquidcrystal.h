@@ -99,7 +99,9 @@ void lcd_cursor_blink(uint8_t is_blinking);
 void lcd_cursor_position(uint8_t row, uint8_t col);
 
 // Shifts the display n times if direction is equal to 0 it 
-// shifts left and right otherwise
+// shifts left and right otherwise. Note that it always
+// counts from the very first position and if the display is
+// configured to 2 lines, both of them shift at the same time
 void lcd_shift(uint8_t n, uint8_t direction);
 
 // Sends the command to be written to the pins
