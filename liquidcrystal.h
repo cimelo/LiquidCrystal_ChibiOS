@@ -28,10 +28,13 @@
 #define DISPLAY_OFF 0x00
 #define DISPLAY_SHIFT 0x08
 #define DISPLAY_CLEAR 0x01
+
+#define SHIFT_CMD 0x10
 #define SHIFT_RIGHT 0x04
 #define SHIFT_LEFT 0x00
 
-#define CURSOR_SET_CMD 0x80
+#define CURSOR_CMD 0x80
+#define CURSOR_SHIFT 0x00
 #define CURSOR_ON 0x02
 #define CURSOR_OFF 0x00
 #define CURSOR_BLINK_ON 0x01
@@ -80,7 +83,7 @@ void lcd_home(void);
 // Clears the display writing the character 20H into every
 // position, sets the cursor into the (0, 0) position
 // on the matrix, resets the DDRAM (Display Data RAM) to 0
-// and sets the display into incremental mode.
+// and sets the display into incremental mode
 void lcd_clear(void);
 
 // Sets the cursor visibility
@@ -92,15 +95,19 @@ void lcd_cursor_blink(uint8_t is_blinking);
 // Moves the cursor to the desired position on the 
 // LCD matrix it uses the mathematical notation
 // of rows in front of the cols. Note that rows and cols start
-// from 0.
+// from 0
 void lcd_cursor_position(uint8_t row, uint8_t col);
+
+// Shifts the display n times if direction is equal to 0 it 
+// shifts left and right otherwise
+void lcd_shift(uint8_t n, uint8_t direction);
 
 // Sends the command to be written to the pins
 void command(uint8_t cmd);
 
 // Receives a string from the user and prints it on the LCD.
 // the lcd automatically jumps to the next line if the LCD
-// was configured to 2 lines and it reads 40 characters.
+// was configured to 2 lines and it reads 40 characters
 void lcd_print(char* msg);
 
 // Prepares the bits to be written onto the pins
@@ -115,8 +122,5 @@ void digital_write(uint8_t pin, uint8_t value);
 // Enable pin pulse for writing data or commands datasheet
 // HD44780U fig 25 and table on page 52
 void enable_pulse(void);
-
-// Shifts the display n times
-void lcd_shift(uint8_t n);
 
 #endif

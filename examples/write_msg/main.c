@@ -10,7 +10,10 @@ int main(void) {
 
 	//lcd_begin();
 	lcd_init_4bits(2, 16, 6, 7, 2, 3, 4, 5);
-	lcd_print("AAAAAAA");
+	lcd_print("AAAAAAAaaaaaaaaaaaHello");
+	lcd_cursor_position(1, 0);
+	lcd_print("                  World!");
+	lcd_shift(18, 1);
 
 	/*
 	lcd_cursor_position(1, 5);

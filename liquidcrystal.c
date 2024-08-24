@@ -94,12 +94,15 @@ void lcd_cursor_position(uint8_t row, uint8_t col) {
 	lcd.cursor_row = row;
 	lcd.cursor_col = col;
 
-	command( CURSOR_SET_CMD | (col + 0x40*row) );
+	command( CURSOR_CMD | (col + 0x40*row) );
 	chThdSleepMicroseconds(50);
 }
 
-void lcd_shift(uint8_t n) {
-
+void lcd_shift(uint8_t n, uint8_t direction) {
+	for (uint8_t i = 0; i < n; ++i) {
+		command(SHIFT_CMD | DISPLAY_SHIFT | direction);
+		chThdSleepMicroseconds(50);
+	}
 }
 
 void command(uint8_t cmd) {
