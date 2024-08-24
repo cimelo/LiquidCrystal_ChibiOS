@@ -78,6 +78,18 @@ void lcd_cursor_visibility(uint8_t is_visible) {
 	chThdSleepMilliseconds(2);
 }
 
+void lcd_cursor_blink(uint8_t is_blinking) {
+	switch (is_blinking) {
+		case 1:
+			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_BLINK_ON);
+		break;
+		default:
+			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_BLINK_OFF);
+	}
+
+	chThdSleepMilliseconds(2);
+}
+
 void lcd_cursor_position(uint8_t row, uint8_t col) {
 	lcd.cursor_row = row;
 	lcd.cursor_col = col;

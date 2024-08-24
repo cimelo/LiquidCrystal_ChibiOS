@@ -12,6 +12,7 @@ int main(void) {
 	lcd_init_4bits(2, 16, 6, 7, 2, 3, 4, 5);
 	lcd_print("AAAAAAA");
 	lcd_cursor_visibility(1);
+	lcd_cursor_blink(1);
 
 	/*
 	lcd_cursor_position(1, 5);

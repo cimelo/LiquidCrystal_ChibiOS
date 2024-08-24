@@ -86,6 +86,9 @@ void lcd_clear(void);
 // Sets the cursor visibility
 void lcd_cursor_visibility(uint8_t is_visible);
 
+// Sets the cursor to blink or not
+void lcd_cursor_blink(uint8_t is_blinking);
+
 // Moves the cursor to the desired position on the 
 // LCD matrix it uses the mathematical notation
 // of rows in front of the cols. Note that rows and cols start
