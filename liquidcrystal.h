@@ -22,6 +22,7 @@
 #define ENTRY_DEC 0x00
 #define ENTRY_SHIFT 0x01
 
+#define DISPLAY_CTRL 0x08
 #define DISPLAY_HOME 0x02
 #define DISPLAY_ON 0x04
 #define DISPLAY_OFF 0x00
@@ -31,6 +32,10 @@
 #define SHIFT_LEFT 0x00
 
 #define CURSOR_SET_CMD 0x80
+#define CURSOR_ON 0x02
+#define CURSOR_OFF 0x00
+#define CURSOR_BLINK_ON 0x01
+#define CURSOR_BLINK_OFF 0x00
 
 #define DL_4BITS 0x00
 #define DL_8BITS 0x10
@@ -38,8 +43,8 @@
 #define ROWS_2 0x08
 #define FONT_8 0x00
 #define FONT_10 0x04
-#define DOTS_8 0x00 // Dots per cell
-#define DOTS_10 0x08 // Dots per cell
+#define DOTS_8 0x00
+#define DOTS_10 0x08
 
 // We declare data using Little Endian format and
 // we use the digital pins signature as they are
@@ -66,15 +71,29 @@ void lcd_init_4bits(uint8_t rows, uint8_t cols, uint8_t rs,\
 // the Hitachi HD44780U for inialization
 void lcd_begin(void);
 
-/*
-// Clears the display
-void display_clear(void);
+// Function that sends the cursor to the first position
+// and returns the shifted display to the original position.
+// Because of it's complexity, it takes ate least 1.52ms to 
+// complete
+void lcd_home(void);
 
-// Set the cursor position on the LCD matrix
-void set_cursor(uint8_t row, uint8_t col);
-void cursor_on(void);
-void cursor_off(void);
-*/
+// Clears the display writing the character 20H into every
+// position, sets the cursor into the (0, 0) position
+// on the matrix, resets the DDRAM (Display Data RAM) to 0
+// and sets the display into incremental mode.
+void lcd_clear(void);
+
+// Sets the cursor visibility
+void lcd_cursor_visibility(uint8_t is_visible);
+
+// Moves the cursor to the desired position on the 
+// LCD matrix it uses the mathematical notation
+// of rows in front of the cols. Note that rows and cols start
+// from 0.
+void lcd_cursor_position(uint8_t row, uint8_t col);
+
+// Sends the command to be written to the pins
+void command(uint8_t cmd);
 
 // Receives a string from the user and prints it on the LCD.
 // the lcd automatically jumps to the next line if the LCD
@@ -93,24 +112,6 @@ void digital_write(uint8_t pin, uint8_t value);
 // Enable pin pulse for writing data or commands datasheet
 // HD44780U fig 25 and table on page 52
 void enable_pulse(void);
-
-// Sends the command to be written to the pins
-void command(uint8_t cmd);
-
-// Moves the cursor to the desired position on the 
-// LCD matrix it uses the mathematical notation
-// of rows in front of the cols. Note that rows and cols start
-// from 0.
-void lcd_set_cursor(uint8_t row, uint8_t col);
-
-// Helper function that clears the display
-void lcd_clear(void);
-
-// Helper function that sends the cursor to the first position
-// and returns the shifted display to the original position.
-// Because of it's complexity, it takes ate least 1.52ms to 
-// complete
-void lcd_home(void);
 
 // Shifts the display n times
 void lcd_shift(uint8_t n);

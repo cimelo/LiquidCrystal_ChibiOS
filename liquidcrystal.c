@@ -55,7 +55,30 @@ void lcd_begin(void) {
 
 	lcd_clear();
 
-	lcd_home();
+	// lcd_home();
+}
+
+
+void lcd_cursor_position(uint8_t row, uint8_t col) {
+	lcd.cursor_row = row;
+	lcd.cursor_col = col;
+
+	command( CURSOR_SET_CMD | (col + 0x40*row) );
+	chThdSleepMicroseconds(50);
+}
+
+void lcd_clear(void) {
+	command(DISPLAY_CLEAR);
+	chThdSleepMilliseconds(2);
+}
+
+void lcd_home(void) {
+	command(DISPLAY_HOME);
+	chThdSleepMilliseconds(2);
+}
+
+void lcd_shift(uint8_t n) {
+
 }
 
 void command(uint8_t cmd) {
@@ -103,26 +126,4 @@ void enable_pulse(void) {
 	palClearPad(PORT(lcd.en), PIN(lcd.en));
 	// Maximum execution time for a instruction is 37us
 	chThdSleepMicroseconds(100);
-}
-
-void lcd_set_cursor(uint8_t row, uint8_t col) {
-	lcd.cursor_row = row;
-	lcd.cursor_col = col;
-
-	command( CURSOR_SET_CMD | (col + 0x40*row) );
-	chThdSleepMicroseconds(50);
-}
-
-void lcd_clear(void) {
-	command(DISPLAY_CLEAR);
-	chThdSleepMicroseconds(50);
-}
-
-void lcd_home(void) {
-	command(DISPLAY_HOME);
-	chThdSleepMilliseconds(2);
-}
-
-void lcd_shift(uint8_t n) {
-
 }
