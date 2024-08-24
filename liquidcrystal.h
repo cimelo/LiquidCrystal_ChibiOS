@@ -50,8 +50,8 @@ struct Lcd {
 	uint8_t rows;
 	uint8_t cols;
 	uint8_t data[4];
-	uint8_t curr_row;
-	uint8_t curr_col;
+	uint8_t cursor_row;
+	uint8_t cursor_col;
 };
 
 // A default configuration is given to the user
@@ -77,8 +77,8 @@ void cursor_off(void);
 */
 
 // Receives a string from the user and prints it on the LCD.
-// If the string has more characters than the LCD's maximum 
-// capacity, it will print cyclically, starting from the first position.
+// the lcd automatically jumps to the next line if the LCD
+// was configured to 2 lines and it reads 40 characters.
 void lcd_print(char* msg);
 
 // Prepares the bits to be written onto the pins
@@ -111,5 +111,8 @@ void lcd_clear(void);
 // Because of it's complexity, it takes ate least 1.52ms to 
 // complete
 void lcd_home(void);
+
+// Shifts the display n times
+void lcd_shift(uint8_t n);
 
 #endif
