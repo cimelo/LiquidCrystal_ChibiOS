@@ -81,10 +81,10 @@ void lcd_cursor_visibility(uint8_t is_visible) {
 void lcd_cursor_blink(uint8_t is_blinking) {
 	switch (is_blinking) {
 		case 1:
-			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_BLINK_ON);
+			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_ON | CURSOR_BLINK_ON);
 		break;
 		default:
-			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_BLINK_OFF);
+			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_ON | CURSOR_BLINK_OFF);
 	}
 
 	chThdSleepMilliseconds(2);

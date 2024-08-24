@@ -86,7 +86,7 @@ void lcd_clear(void);
 // Sets the cursor visibility
 void lcd_cursor_visibility(uint8_t is_visible);
 
-// Sets the cursor to blink or not
+// Turns the cursor on and then sets the cursor to blink or not
 void lcd_cursor_blink(uint8_t is_blinking);
 
 // Moves the cursor to the desired position on the 
