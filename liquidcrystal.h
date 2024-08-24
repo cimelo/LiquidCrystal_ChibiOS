@@ -50,6 +50,8 @@ struct Lcd {
 	uint8_t rows;
 	uint8_t cols;
 	uint8_t data[4];
+	uint8_t curr_row;
+	uint8_t curr_col;
 };
 
 // A default configuration is given to the user
@@ -99,7 +101,7 @@ void command(uint8_t cmd);
 // LCD matrix it uses the mathematical notation
 // of rows in front of the cols. Note that rows and cols start
 // from 0.
-void lcd_set_cursor(uint8_t row, uint8_t cols);
+void lcd_set_cursor(uint8_t row, uint8_t col);
 
 // Helper function that clears the display
 void lcd_clear(void);

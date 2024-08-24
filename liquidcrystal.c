@@ -6,7 +6,9 @@ struct Lcd lcd = {
 	.cols = 16,
 	.rs = 8,
 	.en = 9,
-	.data = {4, 5, 6, 7}
+	.data = {4, 5, 6, 7},
+	.curr_row = 0,
+	.curr_col = 0
 };
 
 void lcd_init_4bits(uint8_t rows, uint8_t cols, uint8_t rs,\
@@ -62,16 +64,16 @@ void command(uint8_t cmd) {
 
 void lcd_print(char* msg) {
 	uint8_t* tmp = (uint8_t*) msg;
-	uint8_t curr_row = 0;
 
-	for (uint8_t* s = tmp; *s; ++s) {
-		if ( (s-tmp)%lcd.cols == 0 ) {
-			lcd_set_cursor(curr_row, 0);
-			++curr_row;
+	for (uint8_t* s = tmp; *s; ++s, ++lcd.curr_col) {
+		// Diferently from what is said in the datasheet, the
+		// LCD does not automatically jump to the next line.
+		if ( lcd.curr_col == lcd.cols ) {
+			lcd.curr_col = 0;
+			lcd.curr_row = ( (lcd.curr_row+1) == lcd.rows ) ? 0 : lcd.curr_row+1;
+			lcd_set_cursor(lcd.curr_row, lcd.curr_col);
 		}
-		if (curr_row == lcd.rows) {
-			curr_row = 0;
-		}
+
 		send(*s, 1);
 	}
 }
@@ -111,8 +113,11 @@ void enable_pulse(void) {
 	chThdSleepMicroseconds(100);
 }
 
-void lcd_set_cursor(uint8_t row, uint8_t cols) {
-	command( CURSOR_SET_CMD | (cols + 0x40*row) );
+void lcd_set_cursor(uint8_t row, uint8_t col) {
+	lcd.curr_row = row;
+	lcd.curr_col = col;
+
+	command( CURSOR_SET_CMD | (col + 0x40*row) );
 	chThdSleepMicroseconds(50);
 }
 

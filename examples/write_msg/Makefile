@@ -111,7 +111,7 @@ include $(CHIBIOS)/os/common/ports/AVR/compilers/GCC/mk/port.mk
 
 # LCD inclusion, note that it expecs the files in
 # the correct folder
-include $(CHIBIOS)/os/hal/lib/lcd/lcd.mk 
+include lcd.mk 
 
 # List C source files here. (C dependencies are automatically generated.)
 CSRC =  $(ALLCSRC) \

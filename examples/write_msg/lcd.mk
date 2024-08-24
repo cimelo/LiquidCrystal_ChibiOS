@@ -1,7 +1,7 @@
 # RT Shell files.
-LCDSRC = $(CHIBIOS)/os/hal/lib/lcd/liquidcrystal.c
+LCDSRC = ../../liquidcrystal.c
 
-LCDINC = $(CHIBIOS)/os/hal/lib/lcd
+LCDINC = ../../../LiquidCrystal_ChibiOS
 
 # Shared variables
 ALLCSRC += $(LCDSRC)
