@@ -54,17 +54,11 @@ void lcd_begin(void) {
 	chThdSleepMicroseconds(50);
 
 	lcd_clear();
-
-	// lcd_home();
 }
 
-
-void lcd_cursor_position(uint8_t row, uint8_t col) {
-	lcd.cursor_row = row;
-	lcd.cursor_col = col;
-
-	command( CURSOR_SET_CMD | (col + 0x40*row) );
-	chThdSleepMicroseconds(50);
+void lcd_home(void) {
+	command(DISPLAY_HOME);
+	chThdSleepMilliseconds(2);
 }
 
 void lcd_clear(void) {
@@ -72,9 +66,24 @@ void lcd_clear(void) {
 	chThdSleepMilliseconds(2);
 }
 
-void lcd_home(void) {
-	command(DISPLAY_HOME);
+void lcd_cursor_visibility(uint8_t is_visible) {
+	switch (is_visible) {
+		case 1:
+			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_ON);
+		break;
+		default:
+			command(DISPLAY_CTRL | DISPLAY_ON | CURSOR_OFF);
+	}
+
 	chThdSleepMilliseconds(2);
+}
+
+void lcd_cursor_position(uint8_t row, uint8_t col) {
+	lcd.cursor_row = row;
+	lcd.cursor_col = col;
+
+	command( CURSOR_SET_CMD | (col + 0x40*row) );
+	chThdSleepMicroseconds(50);
 }
 
 void lcd_shift(uint8_t n) {
